@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "proto_learn/protogen/vault";
+
+message Vault {
+    uint32 id = 1;
+    string name = 2;
+    string description = 3;
+    string secret = 4;
+    string url = 5;
+}

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+
+import "proto/vault/vault.proto";
+import "proto/validate/validate.proto";
+option go_package = "proto_learn/protogen/user";
+
+
+enum Gender {
+    GENDER_UNKNOWN = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
+}
+message Address {
+    string street = 1;
+    string country = 2;
+}
+
+message User {
+    uint32 id = 1;
+    string username = 2;
+    string email = 3 [(validate.rules).string = {
+        pattern: "^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$"
+    }];
+    string password = 4 [(validate.rules).string = {
+        min_len: 8,
+        max_len: 20,
+    }];
+    bool is_vip = 5 [json_name = "is_vip"];
+    Address address = 6;
+
+    Gender gender = 10;
+    repeated string hobbies = 11;
+    repeated Vault vaults = 12;
+}
